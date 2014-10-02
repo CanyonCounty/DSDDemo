@@ -9,4 +9,20 @@ This demo was created as a challenge to myself as to how one could solve this pr
 
 ![Main Application](images/MainApplication.png)
 
-I grouped each field like it was in the existing application tabs. Those sections can expand and contract if you click on them. You can also use the search box at the top to fileter the visible fields. If there are only a few fields you care about you can click the Filter button which will then change to show all. Clicking on Edit Shown will put a checkbox near every field. Required fields have the checkbox disabled. The fields that are checked are the ones that show when you filter.
+I grouped each field like it was in the existing application tabs. Those sections can expand and contract if you click on them. 
+
+![Tabs](images/Tabs.png)
+
+You can also use the search box at the top to filter the visible fields. 
+
+![Search](images/Search.png)
+
+If there are only a few fields you care about you can click the Filter button which will then change to show all. 
+
+![Filter](images/Filter.png)
+
+Clicking on Edit Shown will put a checkbox near every field. Required fields have the checkbox disabled. Clicking Done exits edit mode.
+
+![Edit](images/Edit.png)
+
+The fields that are checked are the ones that show when you filter.
