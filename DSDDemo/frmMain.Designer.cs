@@ -50,47 +50,6 @@
             // 
             this.permitList.DropDownWidth = 10;
             this.permitList.FormattingEnabled = true;
-            this.permitList.Items.AddRange(new object[] {
-            "Administrative Lot Split (LS)",
-            "Appeal (AP)",
-            "Building (BP)",
-            "Canyon County Ordinance (OR)",
-            "Comp Plan/Rezone (CPR)",
-            "Conditional Rezone (CR)",
-            "Conditional Use (CU)",
-            "Conditional Use Revocation (CUR)",
-            "Conditional Use Vacation (CUV)",
-            "Demolition (DM)",
-            "Development Permit (DP)",
-            "Electrical (EL)",
-            "ESA (EP)",
-            "Excavating & Grading (EG)",
-            "Home Business (HB)",
-            "Home Occupation (HO)",
-            "House Moving (HM)",
-            "House Number (HN)",
-            "Impact Area Agreement (IA)",
-            "Mechanical (MC)",
-            "Mineral Extract Short Term (MST)",
-            "Parcel Inquiry (PI)",
-            "Planned Unit Development (PU)",
-            "Plat Vacation (PV)",
-            "Private Road Name Change (PRNC)",
-            "Property Line Adjustment (PLA)",
-            "Property Research (PR)",
-            "Public Road Name Change (RNC)",
-            "Request for Extension (RFE)",
-            "Rezone (RZ)",
-            "Road Name (Road)",
-            "Short Plat (SP)",
-            "Sign (SG)",
-            "Sign Variance (SV)",
-            "Street Vacation (VC)",
-            "Subdivision (SD)",
-            "Temporary Residence Permit (TP)",
-            "Waivers/Irrigation Plan (WI)",
-            "Zone Compliance (ZC)",
-            "Zoning Variance (ZV)"});
             this.permitList.Location = new System.Drawing.Point(82, 9);
             this.permitList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.permitList.Name = "permitList";
@@ -129,6 +88,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "...";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panelMain
@@ -147,7 +107,7 @@
             // searchTextBox1
             // 
             this.searchTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchTextBox1.Cue = " Search";
+            this.searchTextBox1.Enabled = false;
             this.searchTextBox1.Location = new System.Drawing.Point(380, 54);
             this.searchTextBox1.Name = "searchTextBox1";
             this.searchTextBox1.Size = new System.Drawing.Size(121, 21);

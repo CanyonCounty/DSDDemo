@@ -6,6 +6,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Permits", "Permits\Permits.csproj", "{6EB2499C-2759-4CDB-B7AB-31A2A8F6C61E}"
 EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug.New|Any CPU = Debug.New|Any CPU
 		Debug|Any CPU = Debug|Any CPU

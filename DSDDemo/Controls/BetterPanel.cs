@@ -10,7 +10,7 @@ namespace DSDDemo
     // Just makes it easier to find a set of controls that match a name
     // The default Find method only returns an exact match
     // - 11/27/2009 - kw
-    class BetterPanel: Panel
+    class BetterPanel : Panel
     {
         public Control[] FindControls(string startsWith)
         {

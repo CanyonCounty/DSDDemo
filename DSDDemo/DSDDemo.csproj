@@ -94,10 +94,12 @@
     <Compile Include="Controls\SearchTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DBLists.cs" />
     <Compile Include="DrawPermitPanel.cs" />
     <Compile Include="Controls\FieldPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Field.cs" />
     <Compile Include="FilterField.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -111,6 +113,12 @@
     <Compile Include="HackForm.Designer.cs">
       <DependentUpon>HackForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Permits\AdministrativeLotSplit.cs" />
+    <Compile Include="Permits\BasePermit.cs" />
+    <Compile Include="Permits\Building.cs" />
+    <Compile Include="Permits\ConditionalUse.cs" />
+    <Compile Include="Permits\NullPermit.cs" />
+    <Compile Include="Permits\ZoningVariance.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmMain.resx">
@@ -172,12 +180,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Permits\Permits.csproj">
-      <Project>{6EB2499C-2759-4CDB-B7AB-31A2A8F6C61E}</Project>
-      <Name>Permits</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

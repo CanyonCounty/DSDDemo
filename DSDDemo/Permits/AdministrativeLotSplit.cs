@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DSDDemo.Permits
 {
-    class AdministrativeLotSplit : BasePermit
+    public class AdministrativeLotSplit : BasePermit
     {
         public AdministrativeLotSplit()
         {

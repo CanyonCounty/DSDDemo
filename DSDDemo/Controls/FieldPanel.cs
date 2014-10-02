@@ -8,7 +8,8 @@ using System.Drawing;
 
 namespace DSDDemo
 {
-    // Handles the field goodness
+    // Give it a field Object and it properly displays it
+    // it handles data changes
     class FieldPanel: Panel
     {
         private Field field;
@@ -141,19 +142,9 @@ namespace DSDDemo
             c.ScrollBars = ScrollBars.Vertical;
             
             c.Height = 60; // TODO - set the right memo height?
-            //if (field.OriginalValue != field.CurrentValue)
-            //{
-            //    if (!string.IsNullOrEmpty(field.CurrentValue))
-            //    {
-            //        c.Text = field.CurrentValue;
-            //        c.ForeColor = Color.Red;
-            //    }
-            //    else
-            //        c.Text = field.OriginalValue;
-            //}
-            //else
-                c.Text = field.OriginalValue;
+            c.Text = field.OriginalValue;
 
+            // TODO - add double click to show memo window?
             c.TextChanged += new System.EventHandler(this.t_TextChanged);
 
             c.Anchor = (AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top);
@@ -165,6 +156,7 @@ namespace DSDDemo
         private Control MakeCheckedListBox(Field field)
         {
             BetterCheckedListBox c = new BetterCheckedListBox();
+            //ListBox c = new ListBox();
             c.Parent = this;
             c.Width = this.Width - label.Width - 20;
             c.Left = label.Width + 10;
@@ -173,20 +165,7 @@ namespace DSDDemo
             c.TabIndex = Parent.Controls.Count;// +1;
             c.Items.AddRange(field.LookupValues.ToArray());
             c.Height = 20 * c.Items.Count; // TODO - set the right checklist box height?
-            //c.Text = field.OriginalValue;
-            //field.CurrentValue = field.OriginalValue;
-            //if (field.OriginalValue != field.CurrentValue)
-            //{
-            //    if (!string.IsNullOrEmpty(field.CurrentValue))
-            //    {
-            //        c.Text = field.CurrentValue;
-            //        c.ForeColor = Color.Red;
-            //    }
-            //    else
-            //        c.Text = field.OriginalValue;
-            //}
-            //else
-                c.Text = field.OriginalValue;
+            c.Text = field.OriginalValue;
             
             c.CheckOnClick = true;
             c.ItemCheck += new ItemCheckEventHandler(this.c_ItemCheck);
@@ -207,25 +186,13 @@ namespace DSDDemo
             c.TabIndex = Parent.Controls.Count;// +1;
             c.Items.AddRange(field.LookupValues.ToArray());
             c.DropDownStyle = ComboBoxStyle.DropDownList; // Can only select a value
-            //if (field.OriginalValue == null)
-            //    field.OriginalValue = "";
-            //if (field.OriginalValue != field.CurrentValue)
-            //{
-            //    if (!string.IsNullOrEmpty(field.CurrentValue))
-            //    {
-            //        c.Text = field.CurrentValue;
-            //        c.ForeColor = Color.Red;
-            //    }
-            //    else
-            //        c.Text = field.OriginalValue;
-            //}
-            //else
-                c.Text = field.OriginalValue;
+            c.Text = field.OriginalValue;
+
             //c.TextChanged += new System.EventHandler(this.t_TextChanged);
             c.SelectedIndexChanged += new System.EventHandler(this.c_SelectedIndexChanged);
 
             c.Anchor = (AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top);
-
+            
             return c;
         }
 
@@ -238,20 +205,7 @@ namespace DSDDemo
             t.Top = 5;
             t.TabStop = true;
             t.TabIndex = Parent.Controls.Count;// +1;
-            //if (field.OriginalValue == null)
-            //    field.OriginalValue = "";
-            //if (field.OriginalValue != field.CurrentValue)
-            //{
-            //    if (!string.IsNullOrEmpty(field.CurrentValue))
-            //    {
-            //        t.Text = field.CurrentValue;
-            //        t.ForeColor = Color.Red;
-            //    }
-            //    else
-            //        t.Text = field.OriginalValue;
-            //}
-            //else
-                t.Text = field.OriginalValue;
+            t.Text = field.OriginalValue;
             t.TextChanged += new System.EventHandler(this.t_TextChanged);
 
             t.Anchor = (AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top);
@@ -302,6 +256,20 @@ namespace DSDDemo
                 (sender as Control).ForeColor = Color.Red;
             else
                 (sender as Control).ForeColor = Color.Black;
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (Control c in this.Controls)
+                    c.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

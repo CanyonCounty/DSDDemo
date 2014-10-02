@@ -27,7 +27,7 @@ namespace DSDDemo
             ff = new FilterField(button2, textBox1);
             ff.Panel = dp;
             ff.Filtered = false;
-            SearchField search = new SearchField(panel1, textBox1);
+            //SearchField search = new SearchField(panel1, textBox1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,26 +52,28 @@ namespace DSDDemo
 
         }
 
-        private void checkedListBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
-        {
-
-        }
-
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string items = "";
-            foreach (object item in checkedListBox1.CheckedItems)
-            {
-                items += item.ToString() + ",";
-            }
-            items = items.TrimEnd(new char[] { ',' });
-            MessageBox.Show(items);
+            //string items = "";
+            //foreach (object item in checkedListBox1.CheckedItems)
+            //{
+            //    items += item.ToString() + ",";
+            //}
+            //items = items.TrimEnd(new char[] { ',' });
+            //MessageBox.Show(items);
+            textBox1.Text = checkedListBox1.Text;
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            checkedListBox1.Text = textBox1.Text;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //checkedListBox1.Items.R
+            checkedListBox1.Text += ",THREE";
+            textBox1.Text = checkedListBox1.Text;
+        }
     }
 }

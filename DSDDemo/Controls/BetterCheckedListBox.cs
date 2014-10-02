@@ -9,19 +9,18 @@ namespace DSDDemo
     // seriously this is getting nuts!!!
     // WHAT IT FIXES - Who wants to iterate over items in a check list box?
     // I mean really?
-    // Text property is used like CommaText in Delphi.
+    // Text property is used like CommaText via TStringList in Delphi.
     // this.Text = "One, Two, Three" - One, Two and Three will be checked in the Items
     // string res = this.Text - will contail a comma separated values that are checked
 
     class BetterCheckedListBox: CheckedListBox
     {
-        private string text;
         private List<string> stringList;
         private char[] param;
+        private bool _flag;
 
         public BetterCheckedListBox()
         {
-            text = "";
             param = new char[] { ',' };
 
             stringList = new List<string>();
@@ -29,31 +28,34 @@ namespace DSDDemo
             this.ItemCheck += new ItemCheckEventHandler(BetterCheckedListBox_ItemCheck);
         }
 
-        void BetterCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
+        private void BetterCheckedListBox_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            text = "";
-
-            if (e.NewValue == CheckState.Checked)
-                stringList.Add(Items[e.Index].ToString());
-            else
-                stringList.Remove(Items[e.Index].ToString());
-
-            foreach (string str in stringList)
-                text += str + ",";
-            
-            text = text.TrimEnd(param);
+            if (!_flag)
+            {
+                if (e.NewValue == CheckState.Checked)
+                    stringList.Add(Items[e.Index].ToString().Trim());
+                else
+                    stringList.Remove(Items[e.Index].ToString().Trim());
+            }
         }
 
         public override string Text { get { return GetText(); } set { SetText(value); } }
 
         private string GetText()
         {
+            string text = "";
+            foreach (string str in stringList)
+                text += str + ",";
+
+            text = text.Trim(param);
+
             return text;
         }
 
         private void SetText(string value)
         {
             // UnCheck Everything
+            _flag = true;
             for (int i = 0; i < Items.Count; i++)
                 this.SetItemChecked(i, false);
             stringList.Clear();
@@ -63,12 +65,17 @@ namespace DSDDemo
                 string[] things = value.Split(',');
                 foreach (string thing in things)
                 {
-                    stringList.Add(thing);
-                    int index = this.Items.IndexOf(thing);
+                    // only add if it's not already there?
+                    if (stringList.IndexOf(thing) == -1)
+                    {
+                        stringList.Add(thing.Trim());
+                    }
+                    int index = this.Items.IndexOf(thing.Trim());
                     if (index > -1)
                         this.SetItemChecked(index, true);
                 }
             }
+            _flag = false;
         }
 
     }

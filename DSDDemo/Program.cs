@@ -15,9 +15,17 @@ namespace DSDDemo
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
-            // HackForm is/was just used for testing ideas
-            //Application.Run(new HackForm());
+            try
+            {
+                Application.Run(new frmMain());
+                // HackForm is/was just used for testing ideas
+                //Application.Run(new HackForm());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return; // Application object won't work here
+            }
         }
     }
 }

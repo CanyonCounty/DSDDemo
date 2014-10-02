@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DSDDemo.Permits
 {
-    class ConditionalUse : BasePermit
+    public class ConditionalUse : BasePermit
     {
         public ConditionalUse()
         {

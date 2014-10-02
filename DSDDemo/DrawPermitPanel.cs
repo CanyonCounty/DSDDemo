@@ -129,7 +129,7 @@ namespace DSDDemo
             p.AutoSize = true;
         }
 
-        public void FindField(string name)
+        public void ShowField(string name)
         {
             foreach (FieldPanel fp in panel.Controls)
             {
@@ -141,6 +141,42 @@ namespace DSDDemo
                     break;
                 }
             }
+        }
+
+        public FieldPanel FindFieldPanel(string name)
+        {
+            FieldPanel ret = null;
+            foreach (FieldPanel fp in panel.Controls)
+            {
+                if (fp.Field.DisplayLabel.Contains(name))
+                {
+                    ret = fp;
+                    break;
+                }
+            }
+            return ret;
+        }
+
+        // With all the controls we're creating this can get heavy fast!
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                foreach (Control c in panel.Controls)
+                    c.Dispose();
+            }
+            // base does not implement Dispose
+            //base.Dispose(disposing);
         }
     }
 }

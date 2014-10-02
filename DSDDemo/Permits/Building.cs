@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DSDDemo.Permits
 {
-    class BuildingPermit : BasePermit
+    public class BuildingPermit : BasePermit
     {
         public BuildingPermit()
         {

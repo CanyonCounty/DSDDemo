@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Runtime.InteropServices;
 
 using System.Threading;
 using System.IO;
@@ -15,7 +15,7 @@ using DSDDemo.Permits;
 
 namespace DSDDemo
 {
-    public partial class frmMain : Form
+    public partial class frmMain : Form, IMessageFilter
     {
         SearchField search;
         AssemblyFilter<BasePermit> af;
@@ -25,12 +25,13 @@ namespace DSDDemo
         public frmMain()
         {
             InitializeComponent();
+            Application.AddMessageFilter(this);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             BasePermit permit = af.GetItem(permitList.SelectedItem);
-
+            //if (dp != null) dp.Dispose();
             dp = new DrawPermitPanel(panelMain, permit);
             fieldFilter.Panel = dp;
             fieldFilter.Filtered = false;
@@ -152,5 +153,29 @@ namespace DSDDemo
                 
         }
 
+        //Externs
+        [DllImport("user32.dll")]
+        private static extern IntPtr WindowFromPoint(Point pt);
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
+        //Handle MouseWheel
+        public bool PreFilterMessage(ref Message m)
+        {
+            if (m.Msg == 0x20a)
+            {
+                Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
+                IntPtr hWnd = WindowFromPoint(pos);
+                if (hWnd != IntPtr.Zero && hWnd != m.HWnd && Control.FromHandle(hWnd) != null)
+                {
+                    SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+                    return true;
+                }
+            }
+            return false;
+        }
     }
+
+
+
 }

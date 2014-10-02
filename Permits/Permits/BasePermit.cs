@@ -3,6 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+/*
+ * All permit types
+--Administrative Lot Split (LS)
+Appeal (AP)
+--Building (BP)
+Canyon County Ordinance (OR)
+Comp Plan/Rezone (CPR)
+Conditional Rezone (CR)
+--Conditional Use (CU)
+Conditional Use Revocation (CUR)
+Conditional Use Vacation (CUV)
+Demolition (DM)
+Development Permit (DP)
+Electrical (EL)
+ESA (EP)
+Excavating & Grading (EG)
+Home Business (HB)
+Home Occupation (HO)
+House Moving (HM)
+House Number (HN)
+Impact Area Agreement (IA)
+Mechanical (MC)
+Mineral Extract Short Term (MST)
+Parcel Inquiry (PI)
+Planned Unit Development (PU)
+Plat Vacation (PV)
+Private Road Name Change (PRNC)
+Property Line Adjustment (PLA)
+Property Research (PR)
+Public Road Name Change (RNC)
+Request for Extension (RFE)
+Rezone (RZ)
+Road Name (Road)
+Short Plat (SP)
+Sign (SG)
+Sign Variance (SV)
+Street Vacation (VC)
+Subdivision (SD)
+Temporary Residence Permit (TP)
+Waivers/Irrigation Plan (WI)
+Zone Compliance (ZC)
+--Zoning Variance (ZV)
+*/
 namespace DSDDemo.Permits
 {
     // Custom Exceptions

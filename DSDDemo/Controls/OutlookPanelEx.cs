@@ -184,6 +184,7 @@ namespace DSDDemo
         private void panel_DoubleClick(object sender, EventArgs e)
         {
             // Roll up and roll down
+            // TODO: need to set all child controls visible = false so you can't tab to them
             Panel panel = (sender as Panel);
             if (panel.Height == (_headerHeight + 1)) // +1 so you still see the border
             {

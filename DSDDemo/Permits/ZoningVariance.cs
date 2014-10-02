@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DSDDemo.Permits
 {
-    class ZoningVariance : BasePermit
+    public class ZoningVariance : BasePermit
     {
         public ZoningVariance()
         {

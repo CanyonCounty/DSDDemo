@@ -7,7 +7,7 @@ namespace DSDDemo.Permits
 {
     // At the moment it's only used for a blank item in the combo box
     // but I might want this for a compare or similar
-    class NullPermit : BasePermit
+    public class NullPermit : BasePermit
     {
         public NullPermit()
         {

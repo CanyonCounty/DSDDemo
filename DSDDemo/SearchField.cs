@@ -18,14 +18,14 @@ namespace DSDDemo
     class SearchField
     {
         private BetterPanel panel;
-        private TextBox search;
+        private SearchTextBox search;
         private Color defColor;
         private Color highlite = Color.Cornsilk;
         private string searchText = "";
 
         public SearchFieldMode Mode { get; set; }
 
-        public SearchField(BetterPanel panel, TextBox search)
+        public SearchField(BetterPanel panel, SearchTextBox search)
         {
             this.panel = panel;
             this.search = search;
