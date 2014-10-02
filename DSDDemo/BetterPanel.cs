@@ -15,10 +15,13 @@ namespace DSDDemo
         public Control[] FindControls(string startsWith)
         {
             ArrayList controls = new ArrayList();
-            string needle = startsWith.Replace(" ", "_");
+            // Hopefully none of the control names have a space in them
+            // so we'll remove them before the search
+            string needle = startsWith.Replace(" ", "");
             foreach (Control control in Controls)
             {
-                string name = control.Name.Replace(" ", "_");
+                //string name = control.Name.Replace(" ", "");
+                string name = control.Name;
                 if (name.ToUpper().Contains(needle.ToUpper()))
                     controls.Add(control);
             }

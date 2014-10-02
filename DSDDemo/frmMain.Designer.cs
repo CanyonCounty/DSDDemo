@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.permitList = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panelMain = new DSDDemo.BetterPanel();
+            this.buttonShow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -46,11 +47,11 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Permit Type";
             // 
-            // comboBox1
+            // permitList
             // 
-            this.comboBox1.DropDownWidth = 10;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.permitList.DropDownWidth = 10;
+            this.permitList.FormattingEnabled = true;
+            this.permitList.Items.AddRange(new object[] {
             "Administrative Lot Split (LS)",
             "Appeal (AP)",
             "Building (BP)",
@@ -91,12 +92,12 @@
             "Waivers/Irrigation Plan (WI)",
             "Zone Compliance (ZC)",
             "Zoning Variance (ZV)"});
-            this.comboBox1.Location = new System.Drawing.Point(82, 10);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(200, 21);
-            this.comboBox1.Sorted = true;
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.permitList.Location = new System.Drawing.Point(82, 10);
+            this.permitList.Name = "permitList";
+            this.permitList.Size = new System.Drawing.Size(200, 21);
+            this.permitList.Sorted = true;
+            this.permitList.TabIndex = 1;
+            this.permitList.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -107,19 +108,20 @@
             this.label2.TabIndex = 3;
             this.label2.Text = "Count:";
             // 
-            // textBox1
+            // searchBox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(301, 55);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBox.Enabled = false;
+            this.searchBox.Location = new System.Drawing.Point(280, 55);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(96, 20);
+            this.searchBox.TabIndex = 2;
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(254, 58);
+            this.label3.Location = new System.Drawing.Point(233, 58);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 5;
@@ -127,11 +129,11 @@
             // 
             // button1
             // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Location = new System.Drawing.Point(377, 55);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(24, 20);
-            this.button1.TabIndex = 6;
+            this.button1.TabIndex = 3;
             this.button1.Text = "X";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -148,16 +150,27 @@
             this.panelMain.Size = new System.Drawing.Size(389, 173);
             this.panelMain.TabIndex = 0;
             // 
+            // buttonShow
+            // 
+            this.buttonShow.Location = new System.Drawing.Point(16, 48);
+            this.buttonShow.Name = "buttonShow";
+            this.buttonShow.Size = new System.Drawing.Size(106, 23);
+            this.buttonShow.TabIndex = 6;
+            this.buttonShow.Text = "Show All";
+            this.buttonShow.UseVisualStyleBackColor = true;
+            this.buttonShow.Click += new System.EventHandler(this.button2_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 266);
+            this.Controls.Add(this.buttonShow);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.searchBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.permitList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelMain);
             this.Name = "frmMain";
@@ -171,11 +184,12 @@
 
         private DSDDemo.BetterPanel panelMain;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox permitList;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonShow;
     }
 }
 
