@@ -18,7 +18,7 @@ namespace DSDDemo.Permits
         string NextPermitNumber();
     }
 
-    abstract class BasePermit : Permit
+    public abstract class BasePermit : Permit
     {
         protected string prefix = "";
         protected int permitCount = 0;

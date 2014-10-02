@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 
 using System.Threading;
+using System.IO;
+using System.Drawing.Imaging;
 using DSDDemo.Permits;
 
 namespace DSDDemo
@@ -18,16 +20,11 @@ namespace DSDDemo
         SearchField search;
         AssemblyFilter<BasePermit> af;
         DrawPermitPanel dp;
-        string searchValue = "";
+        FilterField fieldFilter;
 
         public frmMain()
         {
             InitializeComponent();
-            
-            search = new SearchField(panelMain, searchBox);
-
-            af = new AssemblyFilter<BasePermit>(permitList);
-            af.Bind(); // Moved from constructor to avoid null below
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -35,39 +32,125 @@ namespace DSDDemo
             BasePermit permit = af.GetItem(permitList.SelectedItem);
 
             dp = new DrawPermitPanel(panelMain, permit);
-            dp.Draw(true);
+            fieldFilter.Panel = dp;
+            fieldFilter.Filtered = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonEdit_Click(object sender, EventArgs e)
         {
-            search.Clear();
+            if (buttonEdit.Text == "Edit Shown")
+            {
+                buttonEdit.Text = "Done";
+                fieldFilter.Filtered = false; // show everything
+            }
+            else
+            {
+                buttonEdit.Text = "Edit Shown";
+            }
+            
+#if NEW
+            foreach (OutlookPanelEx panel in panelMain.Controls)
+            {
+                foreach (FieldPanel ctl in panel.Controls)
+                {
+#else
+                foreach (Control ctl in panelMain.Controls)
+#endif
+                    {
+                        if (ctl is FieldPanel)
+                            (ctl as FieldPanel).ToggleCheckBox();
+                    }
+#if NEW
+                }
+            }
+#endif
+            
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            fieldFilter = new FilterField(buttonShow, searchTextBox1);
+            af = new AssemblyFilter<BasePermit>(permitList);
+            // Moved from constructor to avoid null below
+            // SelectedIndexChanged was firing before constructor completed
+            af.Bind();
+
+#if NEW
+                panelMain.BackColor = System.Drawing.SystemColors.ControlLightLight;
+#endif
+
+            //search = new SearchField(panelMain, searchBox);
+            search = new SearchField(panelMain, searchTextBox1);
+
+            // This is only allowed in code since you may want to populate it via
+            // a code enum, database entries, etc.
+            // That and I didn't want to create a designer
+            searchTextBox1.AddMenuItem("Contains", true);
+            searchTextBox1.AddMenuItem("Exact");
+            searchTextBox1.AddMenuItem("Starts With");
+
+            //System.Diagnostics.FileVersionInfo finfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
+            //this.Text += " " + finfo.FileVersion.ToString();
+            this.Text += " " + Application.ProductVersion.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (searchBox.Text != "")
-                searchValue = searchBox.Text;
+            // Find Control based on nearest Display Label
+            // Currently it only finds the first one, and not any others
+            // I don't think this is an issue, the user can filter
+            // I'll be finding an exact one for validation
+            //dp.FindField("Project Type");
 
-            search.Clear();
+            searchTextBox1.Enabled = !searchTextBox1.Enabled;
+        }
 
-            bool drawAll = false;
-            if (buttonShow.Text == "Show All")
+        private void searchTextBox1_MenuItemClicked(object sender, EventArgs e, string menuText)
+        {
+            switch (menuText)
             {
-                buttonShow.Text = "Filtered";
-                drawAll = false;
-            }
-            else
-            {
-                buttonShow.Text = "Show All";
-                drawAll = true;
-            }
-
-            dp.Draw(drawAll);
-            if (drawAll)
-            {
-                if (searchValue != "")
-                    searchBox.Text = searchValue;
+                case "Contains":
+                    search.Mode = SearchFieldMode.Contains;
+                    break;
+                case "Exact":
+                    search.Mode = SearchFieldMode.Equals;
+                    break;
+                case "Starts With":
+                    search.Mode = SearchFieldMode.StartsWith;
+                    break;
             }
         }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            bool broke = false;
+#if NEW
+            foreach(OutlookPanelEx panelOwner in panelMain.Controls)
+            {
+                foreach(FieldPanel panel in panelOwner.Controls)
+#else
+            foreach (FieldPanel panel in panelMain.Controls)
+#endif
+            {
+                if (broke) break; // Sloppy, but works 
+                broke = false;
+                if (panel.IsDirty)
+                {
+                    MessageBox.Show(panel.Field.DisplayLabel + " has been changed");
+                    panel.Visible = true; // make sure it's shown
+                    panel.Focus();
+                    panel.Control.Focus();
+                    e.Cancel = true;
+                    broke = true;
+                    break;
+                }
+                
+            }
+#if NEW
+                }
+#endif
+                
+        }
+
     }
 }

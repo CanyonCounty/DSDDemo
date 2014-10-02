@@ -14,73 +14,132 @@ namespace DSDDemo
     {
         BetterPanel panel;
         BasePermit permit;
+#if NEW        
+        int curGroup = 0;
+#endif
 
         public DrawPermitPanel(BetterPanel panel, BasePermit permit)
         {
             this.panel = panel;
             this.permit = permit;
+            panel.AutoScroll = true;
+            
+            // Clear on create
+            panel.Controls.Clear();
         }
 
         public void Draw(bool showAll)
         {
-            // Clean up all the old ones
             panel.Visible = false;
-            panel.Controls.Clear();
+            OutlookPanelEx own = null;
 
-            List<Field> drawList = permit.GetFields();
-            
-            // LINQ ROCKS!!!
-            drawList = (from f in drawList orderby f.GroupOrder, f.SortOrder select f).ToList();
-            // another way to do the same as above
-            //drawList = drawList.OrderBy(f => f.GroupOrder).ThenBy(f => f.SortOrder).ToList();
-
-            if (!showAll)
-                drawList = (from f in drawList where f.Shown == true select f).ToList();
-
-            foreach (Field f in drawList)
+            //panel.Controls.Clear();  // only draw the items once
+            if (panel.Controls.Count == 0)
             {
-                // Broke this out in case I wanted to do something else
-                DrawField(f);
+                List<Field> drawList = permit.GetFields();
+
+                // LINQ ROCKS!!!
+                drawList = (from f in drawList orderby f.GroupOrder, f.SortOrder select f).ToList();
+                // another way to do the same as above
+                //drawList = drawList.OrderBy(f => f.GroupOrder).ThenBy(f => f.SortOrder).ToList();
+
+                if (!showAll)
+                    drawList = (from f in drawList where f.Shown == true select f).ToList();
+
+                foreach (Field f in drawList)
+                {
+#if NEW
+                    if (f.GroupOrder != curGroup)
+                    {
+                        if (own != null) own.AutoSize = true;
+                        own = DrawGroupPanel(f);
+                    }
+                    DrawField(f, own);
+                    curGroup = f.GroupOrder;
+#else
+                    DrawField(f);
+#endif
+                }
+                // Get the last one too
+                if (own != null) own.AutoSize = true;
+            }
+            else
+            {
+                // Do the check only once, not for each item
+                if (showAll)
+                {
+#if NEW
+                    foreach(OutlookPanelEx subpanel in panel.Controls)
+                    {
+                        foreach(FieldPanel fp in subpanel.Controls)
+#else
+                        foreach (FieldPanel fp in panel.Controls)
+#endif
+                        {
+                            //fp.Visible = fp.Field.Shown;
+                            fp.Visible = true;
+                        }
+#if NEW
+                    }
+#endif
+
+                }
+                else
+                {
+#if NEW
+                    foreach(OutlookPanelEx subpanel in panel.Controls)
+                    {
+                        foreach(FieldPanel fp in subpanel.Controls)
+#else
+                        foreach (FieldPanel fp in panel.Controls)
+#endif
+                        {
+                            fp.Visible = fp.Field.Shown;
+                        }
+#if NEW
+                    }
+#endif
+                }
             }
             panel.Visible = true;
         }
 
+        private OutlookPanelEx DrawGroupPanel(Field field)
+        {
+            OutlookPanelEx owner = new OutlookPanelEx();
+            owner.Parent = panel;
+            owner.HeaderText = field.GroupName;
+            owner.Dock = DockStyle.Top;
+            //owner.AutoSize = true;
+            owner.BringToFront();
+            
+            return owner;
+        }
+
         private void DrawField(Field f)
         {
-            Panel p;
-            Label l;
-            TextBox t;
-            p = new Panel();
-            p.Parent = panel;
-            p.Height = 30;
-            p.Width = panel.Width - 22;
-            p.Top = (panel.Controls.Count - 1) * p.Height;
-            p.Name = f.FieldName;
-            p.Dock = DockStyle.Top;
-            p.BringToFront(); // If you'd like to remove this like talk to Ken first!
+            FieldPanel p = new FieldPanel(f, panel);
+            p.AutoSize = true;
+        }
 
-            l = new Label();
-            l.Parent = p;
-            l.Text = f.DisplayLabel;
-            l.AutoSize = true;
-            l.Top = 10;
+        private void DrawField(Field f, OutlookPanelEx owner)
+        {
+            FieldPanel p = new FieldPanel(f, owner);
+            p.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            p.AutoSize = true;
+        }
 
-            t = new TextBox();
-            t.Parent = p;
-            t.Width = p.Width - l.Width - 20;
-            t.Left = l.Width + 10;
-            t.Top = 5;
-            t.TabStop = true;
-            t.TabIndex = panel.Controls.Count;// +1;
-            //t.Text = t.TabIndex.ToString() + " " + p.Name;
-
-            t.Anchor = (AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top);
-
-            foreach (Control ctl in panel.Controls)
+        public void FindField(string name)
+        {
+            foreach (FieldPanel fp in panel.Controls)
             {
-                // When or if the scroll bar shows up, it hoses the placement of additional panels
-                // This fixes it
-                ctl.Width = panel.Width - 22;
+                if (fp.Field.DisplayLabel.Contains(name))
+                {
+                    // Not needed if we set the focus
+                    //panel.ScrollControlIntoView(fp);
+                    fp.Control.Focus();
+                    break;
+                }
             }
         }
     }

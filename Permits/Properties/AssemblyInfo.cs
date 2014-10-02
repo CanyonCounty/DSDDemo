@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DSDDemo")]
-[assembly: AssemblyDescription("Demo for DSD Permits")]
+[assembly: AssemblyTitle("Permits")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Canyon County")]
-[assembly: AssemblyProduct("DSDDemo")]
+[assembly: AssemblyProduct("Permits")]
 [assembly: AssemblyCopyright("Copyright © Canyon County 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2b5ac2d9-0a56-4b6e-a9cb-489a87d94533")]
+[assembly: Guid("f9402bac-665b-4941-9d2e-0837d951096d")]
 
 // Version information for an assembly consists of the following four values:
 //

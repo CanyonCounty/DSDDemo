@@ -17,7 +17,8 @@ namespace DSDDemo
 
         private void GetDictionary()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+            Assembly assembly = Assembly.GetAssembly(typeof(T));
             Type[] types = assembly.GetTypes();
 
             dic = new Dictionary<string, T>();
